@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 import TableChars from './TableChars';
 
 class TableComponent extends Component {
   constructor() {
     super()
     this.state = {
-      data: []
       // name: '',
       // birthDate: '',
       // height: '',
@@ -16,27 +15,14 @@ class TableComponent extends Component {
     }
   }
 
-  componentDidUpdate() {
-    console.log('component did update');
-  }
 
-  componentDidMount() {
-
-    axios.get('https://swapi.dev/api/people?1')
-      .then(response => {
-        const charactersData = response.data.results
-        this.setState({ data: charactersData })
-        console.log(this.state.data)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
+  
+  
   render() {
+    // console.log(this.props.data)
     return (
       <div>
-        <TableChars data={this.state.data} />
+        <TableChars charactersData={this.props.charactersData} filteredCharacters={this.props.filteredCharacters} />
       </div>
     )
   }

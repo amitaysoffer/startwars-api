@@ -1,10 +1,26 @@
 import React, { Component } from 'react'
 
 class Form extends Component {
+  constructor() {
+    super()
+    this.state = {
+      input: ''
+    }
+    this.handleInput = this.handleInput.bind(this);
+  }
+
+  handleInput = (e) => {
+    // console.log('handleInput')
+    this.props.handleChange(e)
+  }
+
   render() {
     return (
-      <div>
-        <h1>I am in Form Component</h1>
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <span className="input-group-text" id="">Name of Character</span>
+        </div>
+        <input onChange={this.handleInput} type="text" className="form-control"></input>
       </div>
     )
   }
