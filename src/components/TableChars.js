@@ -5,30 +5,10 @@ import TableChar from './TableChar'
 class DisplayTable extends React.Component {
   constructor() {
     super()
-    this.state = {
-      homeworld: '',
-      species: ''
-    }
+    this.state = {}
   }
 
-
-  // const { characters } = props.data
-  // console.log(characters);
   render() {
-    // debugger
-    console.log(this.props.charactersData)
-    console.log(this.props.filteredCharacters)
-
-    // const mapChars = this.props.filteredCharacters.length > 0
-    //   ?
-
-    const mapChars =  this.props.filteredCharacters.map(charData =>
-        <TableChar charData={charData} key={charData.name} />)
-      // :
-      // this.props.charactersData.map(charData =>
-      //   <TableChar charData={charData} key={charData.name} />)
-
-
     return (
       <table className="table table-striped table-hover table-dark">
         <thead className="thead-dark">
@@ -42,7 +22,8 @@ class DisplayTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {mapChars}
+          {this.props.filteredCharacters.map(charData =>
+            <TableChar charData={charData} key={charData.name} />)}
         </tbody>
       </table>
     )

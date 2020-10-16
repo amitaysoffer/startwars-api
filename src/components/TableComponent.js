@@ -6,18 +6,12 @@ class TableComponent extends Component {
   constructor() {
     super()
     this.state = {
-      // name: '',
-      // birthDate: '',
-      // height: '',
-      // mass: '',
-      // homeworld: '',
-      // species: ''
     }
   }
 
 
-  
-  
+
+
   render() {
     // console.log(this.props.data)
     return (

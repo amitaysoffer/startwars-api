@@ -10,7 +10,6 @@ class Form extends Component {
   }
 
   handleInput = (e) => {
-    // console.log('handleInput')
     this.props.handleChange(e)
   }
 

@@ -16,32 +16,18 @@ class App extends React.Component {
   }
 
   handleChange = (e) => {
-    // console.log(e.target.value)
-    // console.log(this.state.charactersData)
-
-    // debugger
-    const a = this.state.charactersData.filter(char => char.name.includes(e.target.value))
-    this.setState({ filteredCharacters: a })
-
-    // const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
-    // const result = words.filter(word => word.length > 6);
-  }
-
-
-  componentDidUpdate() {
-    
+    const filterChar = this.state.charactersData.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()))
+    this.setState({ filteredCharacters: filterChar })
   }
 
   componentDidMount() {
     axios.get('https://swapi.dev/api/people?1')
       .then(response => {
         const charactersData = response.data.results
-        this.setState({ 
+        this.setState({
           charactersData: charactersData,
           filteredCharacters: charactersData
-
         })
-        // console.log(this.state.data)
       })
       .catch(error => {
         console.log(error);
