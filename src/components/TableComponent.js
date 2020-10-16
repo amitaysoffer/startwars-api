@@ -16,7 +16,7 @@ class TableComponent extends Component {
     // console.log(this.props.data)
     return (
       <div>
-        <TableChars charactersData={this.props.charactersData} filteredCharacters={this.props.filteredCharacters} />
+        <TableChars characters={this.props.characters} filteredCharacters={this.props.filteredCharacters} />
       </div>
     )
   }

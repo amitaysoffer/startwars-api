@@ -9,37 +9,69 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      charactersData: [],
+      characters: [],
       filteredCharacters: []
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange = (e) => {
-    const filterChar = this.state.charactersData.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
+    const filterChar = this.state.characters.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({ filteredCharacters: filterChar })
   }
 
-  componentDidMount() {
-    axios.get('https://swapi.dev/api/people?1')
+  async componentDidMount() {
+    const response = await axios.get('https://swapi.dev/api/people?1');
+    const characters = response.data.results
+
+    // for (const char of characters)  {
+    for (const char of characters) {
+      const homeworld = await axios.get(char.homeworld)
+      
+      // debugger
       .then(response => {
-        const charactersData = response.data.results
-        this.setState({
-          charactersData: charactersData,
-          filteredCharacters: charactersData
-        })
+        // console.log(char)
+        // console.log(characters)
+        
       })
-      .catch(error => {
-        console.log(error);
-      });
+    }
+
+
+    this.setState({
+      characters: characters,
+      filteredCharacters: characters
+    })
   }
+
+  // let characters = ''
+  // axios.get('https://swapi.dev/api/people?1')
+  //   .then(response => {
+  //     characters = response.data.results
+  //     characters.forEach((char, index) => {
+  //       // console.log(char)
+  //       // console.log(index)
+  //       axios.get(char.homeworld)
+  //         .then(response => {
+  //           char.homeworld = response.data.name
+  //           debugger
+  //         })
+  //     });
+  //     this.setState({
+  //       characters: characters,
+  //       filteredCharacters: characters
+  //     })
+  //   })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+
 
   render() {
     return (
       <div className="App">
         <Header />
-        <Form charactersData={this.state.charactersData} handleChange={this.handleChange} />
-        <TableComponent charactersData={this.state.charactersData} filteredCharacters={this.state.filteredCharacters} />
+        <Form characters={this.state.characters} handleChange={this.handleChange} />
+        <TableComponent characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />
       </div>
     );
   }
