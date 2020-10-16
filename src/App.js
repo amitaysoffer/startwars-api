@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   handleChange = (e) => {
-    const filterChar = this.state.charactersData.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()))
+    const filterChar = this.state.charactersData.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({ filteredCharacters: filterChar })
   }
 
