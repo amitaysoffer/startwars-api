@@ -24,47 +24,19 @@ class App extends React.Component {
     const response = await axios.get('https://swapi.dev/api/people?1');
     const characters = response.data.results
 
-    // for (const char of characters)  {
     for (const char of characters) {
-      const homeworld = await axios.get(char.homeworld)
-      
-      // debugger
-      .then(response => {
-        // console.log(char)
-        // console.log(characters)
-        
-      })
-    }
+      const homeworldResponse = await axios.get(char.homeworld)
+      char.homeworld = homeworldResponse.data.name
 
+      const speciesdResponse = await axios.get(char.species)
+      char.species = speciesdResponse.data.name
+    }
 
     this.setState({
       characters: characters,
       filteredCharacters: characters
     })
   }
-
-  // let characters = ''
-  // axios.get('https://swapi.dev/api/people?1')
-  //   .then(response => {
-  //     characters = response.data.results
-  //     characters.forEach((char, index) => {
-  //       // console.log(char)
-  //       // console.log(index)
-  //       axios.get(char.homeworld)
-  //         .then(response => {
-  //           char.homeworld = response.data.name
-  //           debugger
-  //         })
-  //     });
-  //     this.setState({
-  //       characters: characters,
-  //       filteredCharacters: characters
-  //     })
-  //   })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-
 
   render() {
     return (
