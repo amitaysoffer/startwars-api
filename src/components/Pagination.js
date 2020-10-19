@@ -17,17 +17,18 @@ class Pagination extends React.Component {
   }
 
   handleNumberClick = (event) => {
-    // debugger
-    // this.props.onPageChange(event.target.text)
+  
     this.props.onPageChange(event.target.text);
 
+    // Next button
     if (event.target.parentElement.className.includes('next') && this.state.page < 9) {
       this.setState({ page: this.state.page + 1 })
-      debugger
+      // debugger
       document.querySelectorAll('.number')[this.state.page].classList.add('active')
       document.querySelectorAll('.number')[this.state.page - 1].classList.remove('active')
       console.log('Next', this.state.page)
     }
+    // Previous button
     if (event.target.parentElement.className.includes('previous') && this.state.page > 1) {
       this.setState({ page: this.state.page - 1 })
       console.log('Previos', this.state.page)
