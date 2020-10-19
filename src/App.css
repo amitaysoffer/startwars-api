@@ -1,3 +1,18 @@
 .App {
   text-align: center;
+  font-family: 'Days One';
+  background: url("http://wallpapercave.com/wp/pEeUsp1.jpg");
+  height: 100vh;
+}
+
+img {
+  width: 25%;
+}
+
+#search-filter {
+  text-transform: uppercase;
+}
+
+.pagination li {
+  color: black;
 }

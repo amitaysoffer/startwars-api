@@ -10,16 +10,16 @@ class Form extends Component {
   }
 
   handleInput = (e) => {
-    this.props.handleChange(e)
+    this.props.onSearchFilterChange(e)
   }
 
   render() {
     return (
       <div className="input-group">
         <div className="input-group-prepend">
-          <span className="input-group-text" id="">Name of Character</span>
+          <span className="input-group-text">Name of Character</span>
         </div>
-        <input onChange={this.handleInput} type="text" className="form-control"></input>
+        <input onChange={this.handleInput} type="text" id="search-filter" className="form-control"></input>
       </div>
     )
   }

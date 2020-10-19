@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header'
 import Form from './components/Form'
 import DisplayTable from './components/TableChars'
+import Pagination from './components/Pagination'
 
 class App extends React.Component {
   constructor() {
@@ -12,38 +13,65 @@ class App extends React.Component {
       characters: [],
       filteredCharacters: []
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.onSearchFilterChange = this.onSearchFilterChange.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
-  handleChange = (e) => {
+  onSearchFilterChange = (e) => {
     const filterChar = this.state.characters.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({ filteredCharacters: filterChar })
   }
 
-  async componentDidMount() {
-    const response = await axios.get('https://swapi.dev/api/people?1');
-    const characters = response.data.results
+  async onPageChange(page) {
+    try {
+      const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
+      const characters = response.data.results
 
-    for (const char of characters) {
-      const homeworldResponse = await axios.get(char.homeworld)
-      char.homeworld = homeworldResponse.data.name
+      for (const char of characters) {
+        const homeworldResponse = await axios.get(char.homeworld)
+        char.homeworld = homeworldResponse.data.name
 
-      const speciesdResponse = await axios.get(char.species)
-      char.species = speciesdResponse.data.name
+        const speciesdResponse = await axios.get(char.species)
+        char.species = speciesdResponse.data.name
+      }
+      this.setState({
+        characters: characters,
+        filteredCharacters: characters
+      })
+    } catch (err) {
+      console.log('error in promise, ', err)
     }
+  }
 
-    this.setState({
-      characters: characters,
-      filteredCharacters: characters
-    })
+  async componentDidMount() {
+    console.log('component did mount')
+    try {
+      const response = await axios.get('https://swapi.dev/api/people?page=1');
+      const characters = response.data.results
+
+      for (const char of characters) {
+        const homeworldResponse = await axios.get(char.homeworld)
+        char.homeworld = homeworldResponse.data.name
+
+        const speciesdResponse = await axios.get(char.species)
+        char.species = speciesdResponse.data.name
+      }
+      this.setState({
+        characters: characters,
+        filteredCharacters: characters
+      })
+    } catch (err) {
+      console.log('error in promise, ', err)
+    }
   }
 
   render() {
     return (
       <div className="App">
         <Header />
-        <Form characters={this.state.characters} handleChange={this.handleChange} />
+        <Form characters={this.state.characters} onSearchFilterChange={this.onSearchFilterChange} />
         <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />
+        <Pagination onPageChange={this.onPageChange} />
       </div>
     );
   }
