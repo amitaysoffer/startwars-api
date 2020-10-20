@@ -5,13 +5,15 @@ import Header from './components/Header'
 import Form from './components/Form'
 import DisplayTable from './components/TableChars'
 import Pagination from './components/Pagination'
+import Spinner from './components/Spinner'
 
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
       characters: [],
-      filteredCharacters: []
+      filteredCharacters: [],
+      spinner: true
     }
     this.onSearchFilterChange = this.onSearchFilterChange.bind(this);
     this.onPageChange = this.onPageChange.bind(this);
@@ -23,6 +25,7 @@ class App extends React.Component {
   }
 
   async onPageChange(page) {
+    debugger
     try {
       const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
       const characters = response.data.results
@@ -36,7 +39,8 @@ class App extends React.Component {
       }
       this.setState({
         characters: characters,
-        filteredCharacters: characters
+        filteredCharacters: characters,
+        spinner: false
       })
     } catch (err) {
       console.log('error in promise, ', err)
@@ -58,7 +62,8 @@ class App extends React.Component {
       }
       this.setState({
         characters: characters,
-        filteredCharacters: characters
+        filteredCharacters: characters,
+        spinner: false
       })
     } catch (err) {
       console.log('error in promise, ', err)
@@ -70,7 +75,8 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <Form characters={this.state.characters} onSearchFilterChange={this.onSearchFilterChange} />
-        <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />
+        {this.state.spinner ? <Spinner /> : <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />}
+        {/* <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} /> */}
         <Pagination onPageChange={this.onPageChange} />
       </div>
     );
