@@ -19,62 +19,24 @@ class Pagination extends React.Component {
   handleNumberClick = (event) => {
     this.props.onPageChange(event.target.text);
     this.setState({ page: event.target.text });
-    this.setNumberColor();
+    this.setNumberColor(event);
   };
 
-  // my function
-  // handleNumberClick = (event) => {
 
-  //   this.props.onPageChange(event.target.text);
+  setNumberColor = (event) => {
+    const previousNumber = this.state.page
 
-  //   // Next button
-  //   if (event.target.parentElement.className.includes('next') && this.state.page < 9) {
-  //     this.setState({ page: this.state.page + 1 })
-  //     debugger
-  //     document.querySelectorAll('.number')[this.state.page].classList.add('active')
-  //     document.querySelectorAll('.number')[this.state.page - 1].classList.remove('active')
-  //     console.log('Next', this.state.page)
-  //   }
-  //   // Previous button
-  //   if (event.target.parentElement.className.includes('previous') && this.state.page > 1) {
-  //     this.setState({ page: this.state.page - 1 })
-  //     console.log('Previos', this.state.page)
-  //   }
-
-  //   event.target.parentElement.parentElement.children[this.state.page].classList.remove('active')
-  //   event.target.parentElement.classList.add('active')
-  //   this.setState({ page: parseInt(event.target.text) })
-  //   console.log('Normal Number', this.state.page)
-
-  //   console.log(document.querySelectorAll('.number')[this.state.page])
-  //   // debugger
-  //   this.setNumberColor()
-
-  // }
-
-  setNumberColor = () => {
-    // debugger
-    // event.target.parentElement.parentElement.children[this.state.page].classList.remove('active')
-    // event.target.parentElement.classList.add('active')
+    event.target.parentElement.parentElement.children[previousNumber].classList.remove('active')
+    event.target.parentElement.classList.add('active')
   }
 
   handleNextElement = (event) => {
-
     const nextNumber = event.target.parentElement.classList.contains('next') ?
       parseInt(this.state.page) + 1 :
       parseInt(this.state.page) - 1;
     this.props.onPageChange(nextNumber);
     this.setState({ page: nextNumber });
-
-    // debugger
-    // if (e.target.parentElement.className.includes('next') && this.state.page < 9) {
-    //   this.setState({ page: this.state.page + 1 })
-    // }
-    // if (e.target.parentElement.className.includes('previous') && this.state.page > 1) {
-    //   this.setState({ page: this.state.page - 1 })
-    // }
-    // debugger
-    // this.props.onPageChange(this.state.page)
+    this.setNumberColor(event)
   }
 
   render() {

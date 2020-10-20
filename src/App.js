@@ -25,7 +25,7 @@ class App extends React.Component {
   }
 
   async onPageChange(page) {
-    debugger
+    // debugger
     try {
       const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
       const characters = response.data.results
