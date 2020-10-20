@@ -25,7 +25,6 @@ class App extends React.Component {
   }
 
   async onPageChange(page) {
-    // debugger
     try {
       const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
       const characters = response.data.results
@@ -76,7 +75,6 @@ class App extends React.Component {
         <Header />
         <Form characters={this.state.characters} onSearchFilterChange={this.onSearchFilterChange} />
         {this.state.spinner ? <Spinner /> : <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />}
-        {/* <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} /> */}
         <Pagination onPageChange={this.onPageChange} />
       </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react'
 import TableChar from './TableChar'
 
-
 class DisplayTable extends React.Component {
   constructor() {
     super()

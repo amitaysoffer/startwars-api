@@ -13,6 +13,13 @@ img {
   text-transform: uppercase;
 }
 
-.pagination li {
-  color: black;
+.page-link {
+  color: #feda4a;
+  background-color: transparent;
+}
+
+.page-item.active .page-link {
+  color: #007bff;
+  background-color: transparent;
+  border-color: #dee2e6;
 }
