@@ -4,7 +4,7 @@ import './App.css';
 import Header from './components/Header'
 import Form from './components/Form'
 import DisplayTable from './components/TableChars'
-import Pagination from './components/Pagination'
+import PaginationContainer from './components/PaginationContainer'
 import Spinner from './components/Spinner'
 
 class App extends React.Component {
@@ -13,16 +13,28 @@ class App extends React.Component {
     this.state = {
       characters: [],
       filteredCharacters: [],
-      allCharacters: [],
       spinner: true
     }
     this.onSearchFilterChange = this.onSearchFilterChange.bind(this);
     this.onPageChange = this.onPageChange.bind(this);
   }
 
-  onSearchFilterChange = (e) => {
-    const filterChar = this.state.allCharacters.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
-    this.setState({ filteredCharacters: filterChar })
+  async onSearchFilterChange(e) {
+    if (e.target.value) {
+      const response = await axios.get(`https://swapi.dev/api/people/?search=${e.target.value}`);
+      const characters = response.data.results;
+
+      for (const char of characters) {
+        const homeworldResponse = await axios.get(char.homeworld)
+        char.homeworld = homeworldResponse.data.name
+
+        const speciesdResponse = await axios.get(char.species)
+        char.species = speciesdResponse.data.name
+      }
+      this.setState({ filteredCharacters: characters })
+    } else {
+      this.setState({ filteredCharacters: this.state.characters })
+    }
   }
 
   async onPageChange(page) {
@@ -47,25 +59,7 @@ class App extends React.Component {
     }
   }
 
-  async createAllCharactersArray() {
-    let allCharacters = []
-    for (let index = 1; index < 10; index++) {
-      const response = await axios.get(`https://swapi.dev/api/people?page=${index}`);
-      const characters = response.data.results
-      for (let i = 0; i < characters.length; i++) {
-        allCharacters.push(characters[i])
-      }
-    }
-    this.setState({
-      allCharacters: allCharacters
-    })
-    console.log(this.state.allCharacters);
-    // debugger
-  }
-
   async componentDidMount() {
-    this.createAllCharactersArray()
-    console.log('component did mount')
     try {
       const response = await axios.get('https://swapi.dev/api/people?page=1');
       const characters = response.data.results
@@ -89,11 +83,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <Header />
         <Form characters={this.state.characters} onSearchFilterChange={this.onSearchFilterChange} />
         {this.state.spinner ? <Spinner /> : <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />}
-        <Pagination onPageChange={this.onPageChange} />
+        <PaginationContainer onPageChange={this.onPageChange} />
       </div>
     );
   }

@@ -3,7 +3,7 @@ import DisplayChars from './DisplayChars'
 
 function DisplayTable(props) {
   return (
-    <table minRows={1} className="table table-striped table-hover table-dark">
+    <table className="table table-striped table-hover table-dark">
       <thead className="thead-dark">
         <tr>
           <th>Name</th>
@@ -21,6 +21,5 @@ function DisplayTable(props) {
     </table>
   )
 }
-
 
 export default DisplayTable
