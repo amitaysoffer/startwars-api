@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       characters: [],
       filteredCharacters: [],
+      allCharacters: [],
       spinner: true
     }
     this.onSearchFilterChange = this.onSearchFilterChange.bind(this);
@@ -20,7 +21,7 @@ class App extends React.Component {
   }
 
   onSearchFilterChange = (e) => {
-    const filterChar = this.state.characters.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
+    const filterChar = this.state.allCharacters.filter(char => char.name.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({ filteredCharacters: filterChar })
   }
 
@@ -46,7 +47,24 @@ class App extends React.Component {
     }
   }
 
+  async createAllCharactersArray() {
+    let allCharacters = []
+    for (let index = 1; index < 10; index++) {
+      const response = await axios.get(`https://swapi.dev/api/people?page=${index}`);
+      const characters = response.data.results
+      for (let i = 0; i < characters.length; i++) {
+        allCharacters.push(characters[i])
+      }
+    }
+    this.setState({
+      allCharacters: allCharacters
+    })
+    console.log(this.state.allCharacters);
+    // debugger
+  }
+
   async componentDidMount() {
+    this.createAllCharactersArray()
     console.log('component did mount')
     try {
       const response = await axios.get('https://swapi.dev/api/people?page=1');
