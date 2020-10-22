@@ -36,11 +36,11 @@ function App() {
       const characters = response.data.results;
 
       for (const char of characters) {
-      
-        const homeworldResponse = await axios.get(char.homeworld)
+
+        const homeworldResponse = await axios.get(char.homeworld.replace('http', 'https'))
         char.homeworld = homeworldResponse.data.name
 
-        const speciesdResponse = await axios.get(char.species)
+        const speciesdResponse = await axios.get(char.species.replace('http', 'https'))
         char.species = speciesdResponse.data.name
       }
       setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
@@ -56,10 +56,11 @@ function App() {
         const characters = response.data.results
 
         for (const char of characters) {
-          const homeworldResponse = await axios.get(char.homeworld)
+          const homeworldResponse = await axios.get(char.homeworld.replace('http', 'https'))
+          debugger
           char.homeworld = homeworldResponse.data.name
 
-          const speciesdResponse = await axios.get(char.species)
+          const speciesdResponse = await axios.get(char.species.replace('http', 'https'))
           char.species = speciesdResponse.data.name
         }
         setCharacters(prevCharacters => prevCharacters = characters)
