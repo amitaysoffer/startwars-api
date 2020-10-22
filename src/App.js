@@ -3,15 +3,32 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header'
 import Form from './components/Form'
-import DisplayTable from './components/TableChars'
-import PaginationContainer from './components/PaginationContainer'
+import DisplayTable from './components/DisplayTable'
+import Pagination from './components/Pagination'
 import Spinner from './components/Spinner'
 
 function App() {
-
   const [characters, setCharacters] = useState([])
   const [filteredCharacters, setFilteredCharacters] = useState([])
   const [spinner, setSpinner] = useState(true)
+  const [page, setPage] = useState(1)
+
+  function handleNumberClick(event) {
+    setPage(parseInt(event.target.text))
+  };
+
+  function handleNextButtonClick() {
+    if (page < 9) {
+      setPage(prevPage => prevPage + 1)
+    }
+  }
+
+  function handlePreviousButtonClick() {
+    if (page > 1) {
+      setPage(prevPage => prevPage - 1)
+    }
+  }
+
 
   async function onSearchFilterChange(e) {
     if (e.target.value) {
@@ -31,30 +48,10 @@ function App() {
     }
   }
 
-  async function onPageChange(page) {
-    try {
-      const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
-      const characters = response.data.results
-
-      for (const char of characters) {
-        const homeworldResponse = await axios.get(char.homeworld)
-        char.homeworld = homeworldResponse.data.name
-
-        const speciesdResponse = await axios.get(char.species)
-        char.species = speciesdResponse.data.name
-      }
-      setCharacters(prevCharacters => prevCharacters = characters)
-      setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
-      setSpinner(prevSpinner => prevSpinner = false)
-    } catch (err) {
-      console.log('error in promise, ', err)
-    }
-  }
-
   useEffect(() => {
     async function displayCharacters() {
       try {
-        const response = await axios.get('https://swapi.dev/api/people?page=1');
+        const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
         const characters = response.data.results
 
         for (const char of characters) {
@@ -72,14 +69,18 @@ function App() {
       }
     }
     displayCharacters();
-  }, [])
+  }, [page])
 
   return (
-    <div className="App container">
+    <div className="app container">
       <Header />
       <Form characters={characters} onSearchFilterChange={onSearchFilterChange} />
       {spinner ? <Spinner /> : <DisplayTable characters={characters} filteredCharacters={filteredCharacters} />}
-      <PaginationContainer onPageChange={onPageChange} />
+      <Pagination
+        page={page}
+        handleNumberClick={handleNumberClick}
+        handleNextButtonClick={handleNextButtonClick}
+        handlePreviousButtonClick={handlePreviousButtonClick} />
     </div>
   );
 }

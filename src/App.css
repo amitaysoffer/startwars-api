@@ -27,7 +27,7 @@ body, html {
   font-family: 'Black Ops One', cursive;
 }
 
-.App {
+.app {
   text-align: center;
   height: 100vh;
   font-size: 1.2em;
@@ -35,10 +35,6 @@ body, html {
 
 .input-wrapper {
   padding: 0 50px 30px 50px;
-}
-
-img {
-  width: 25%;
 }
 
 #search-filter {
