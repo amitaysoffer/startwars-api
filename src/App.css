@@ -3,10 +3,15 @@
 
 body, html {
   background: url("http://wallpapercave.com/wp/pEeUsp1.jpg");
-  font-family: 'Days One';
-  font-family: 'Jura';
   font-family: 'Grandstander', cursive;
   text-align: center;
+  line-height: 1.6;
+}
+
+.app {
+  text-align: center;
+  height: 100vh;
+  font-size: 1.2em;
 }
 
 .yoda {
@@ -22,15 +27,9 @@ body, html {
 }
 
 .header-title {
-  font-size: 60px;
+  font-size: 64px;
   color: #fee71e;
   font-family: 'Black Ops One', cursive;
-}
-
-.app {
-  text-align: center;
-  height: 100vh;
-  font-size: 1.2em;
 }
 
 .input-wrapper {
