@@ -1,23 +1,28 @@
-@import url('https://allfont.net/allfont.css?fonts=star-jedi');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Grandstander&display=swap');
 
 body, html {
   background: url("http://wallpapercave.com/wp/pEeUsp1.jpg");
   font-family: 'Days One';
   font-family: 'Jura';
-  
+  font-family: 'Grandstander', cursive;
+  text-align: center;
 }
 
-.hero-title {
-  font-size: 50px;
-  color: #feda4a;
-  font-family: 'Days One';
-  }
+.header-title {
+  font-size: 70px;
+  color: #fee71e;
+  font-family: 'Black Ops One', cursive;
+}
 
 .App {
   text-align: center;
-  font-family: 'Days One';
-  font-family: 'Star Jedi', arial;
   height: 100vh;
+  font-size: 1.2em;
+}
+
+.input-wrapper {
+  padding: 0 50px 30px 50px;
 }
 
 img {
@@ -26,6 +31,8 @@ img {
 
 #search-filter {
   text-transform: uppercase;
+  font-size: 20px;
+  text-align: center;
 }
 
 .page-link {
