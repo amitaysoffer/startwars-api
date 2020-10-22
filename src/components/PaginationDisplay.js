@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
+
 
 function PaginationDisplay(props) {
+  console.log(props.page)
   return (
     <ul className="pagination pagination-md pg-teal">
       <li className="page-item previous" onClick={props.handlePreviousButtonClick} ><a className="page-link" href="/#">Previous</a></li>

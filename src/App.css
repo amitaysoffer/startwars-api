@@ -9,8 +9,20 @@ body, html {
   text-align: center;
 }
 
+.yoda {
+  width: 100px;
+  margin: 10px 30px;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
 .header-title {
-  font-size: 70px;
+  font-size: 60px;
   color: #fee71e;
   font-family: 'Black Ops One', cursive;
 }

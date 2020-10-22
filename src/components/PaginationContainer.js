@@ -1,42 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PaginationDisplay from './PaginationDisplay'
 
-class PaginationContainer extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      page: 1
-    }
-  }
+function PaginationContainer(props) {
+  const [page, setPage] = useState(1)
 
-  handleNumberClick = (event) => {
-    this.props.onPageChange(event.target.text);
-    this.setState({ page: parseInt(event.target.text) });
+  function handleNumberClick(event) {
+    props.onPageChange(event.target.text);
+    setPage(parseInt(event.target.text))
   };
 
-  handleNextButtonClick = () => {
-    if (this.state.page < 9) {
-      const nextNumber = parseInt(this.state.page) + 1
-      this.props.onPageChange(nextNumber);
-      this.setState({ page: nextNumber });
+  function handleNextButtonClick() {
+    if (page < 9) {
+      setPage(prevPage => prevPage + 1)
+      props.onPageChange(page + 1);
     }
   }
 
-  handlePreviousButtonClick = () => {
-    if (this.state.page > 1) {
-      const previousNumber = this.state.page - 1
-      this.props.onPageChange(previousNumber);
-      this.setState({ page: previousNumber });
+  function handlePreviousButtonClick() {
+    if (page > 1) {
+      setPage(prevPage => prevPage - 1)
+      props.onPageChange(page - 1);
     }
   }
 
-  render() {
-    return (
-      <nav aria-label="Search characters pages">
-        <PaginationDisplay handleNumberClick={this.handleNumberClick} handleNextButtonClick={this.handleNextButtonClick} handlePreviousButtonClick={this.handlePreviousButtonClick} page={this.state.page} />
-      </nav>
-    )
-  }
+  return (
+    <nav aria-label="Search characters pages">
+      <PaginationDisplay handleNumberClick={handleNumberClick} handleNextButtonClick={handleNextButtonClick} handlePreviousButtonClick={handlePreviousButtonClick} page={page} />
+    </nav>
+  )
 }
+
 
 export default PaginationContainer

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header'
 import Form from './components/Form'
@@ -7,19 +7,13 @@ import DisplayTable from './components/TableChars'
 import PaginationContainer from './components/PaginationContainer'
 import Spinner from './components/Spinner'
 
-class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      characters: [],
-      filteredCharacters: [],
-      spinner: true
-    }
-    this.onSearchFilterChange = this.onSearchFilterChange.bind(this);
-    this.onPageChange = this.onPageChange.bind(this);
-  }
+function App() {
 
-  async onSearchFilterChange(e) {
+  const [characters, setCharacters] = useState([])
+  const [filteredCharacters, setFilteredCharacters] = useState([])
+  const [spinner, setSpinner] = useState(true)
+
+  async function onSearchFilterChange(e) {
     if (e.target.value) {
       const response = await axios.get(`https://swapi.dev/api/people/?search=${e.target.value}`);
       const characters = response.data.results;
@@ -31,13 +25,13 @@ class App extends React.Component {
         const speciesdResponse = await axios.get(char.species)
         char.species = speciesdResponse.data.name
       }
-      this.setState({ filteredCharacters: characters })
+      setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
     } else {
-      this.setState({ filteredCharacters: this.state.characters })
+      setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
     }
   }
 
-  async onPageChange(page) {
+  async function onPageChange(page) {
     try {
       const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
       const characters = response.data.results
@@ -49,48 +43,45 @@ class App extends React.Component {
         const speciesdResponse = await axios.get(char.species)
         char.species = speciesdResponse.data.name
       }
-      this.setState({
-        characters: characters,
-        filteredCharacters: characters,
-        spinner: false
-      })
+      setCharacters(prevCharacters => prevCharacters = characters)
+      setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
+      setSpinner(prevSpinner => prevSpinner = false)
     } catch (err) {
       console.log('error in promise, ', err)
     }
   }
 
-  async componentDidMount() {
-    try {
-      const response = await axios.get('https://swapi.dev/api/people?page=1');
-      const characters = response.data.results
+  useEffect(() => {
+    async function displayCharacters() {
+      try {
+        const response = await axios.get('https://swapi.dev/api/people?page=1');
+        const characters = response.data.results
 
-      for (const char of characters) {
-        const homeworldResponse = await axios.get(char.homeworld)
-        char.homeworld = homeworldResponse.data.name
+        for (const char of characters) {
+          const homeworldResponse = await axios.get(char.homeworld)
+          char.homeworld = homeworldResponse.data.name
 
-        const speciesdResponse = await axios.get(char.species)
-        char.species = speciesdResponse.data.name
+          const speciesdResponse = await axios.get(char.species)
+          char.species = speciesdResponse.data.name
+        }
+        setCharacters(prevCharacters => prevCharacters = characters)
+        setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
+        setSpinner(prevSpinner => prevSpinner = false)
+      } catch (err) {
+        console.log('error in promise, ', err)
       }
-      this.setState({
-        characters: characters,
-        filteredCharacters: characters,
-        spinner: false
-      })
-    } catch (err) {
-      console.log('error in promise, ', err)
     }
-  }
+    displayCharacters();
+  }, [])
 
-  render() {
-    return (
-      <div className="App container">
-        <Header />
-        <Form characters={this.state.characters} onSearchFilterChange={this.onSearchFilterChange} />
-        {this.state.spinner ? <Spinner /> : <DisplayTable characters={this.state.characters} filteredCharacters={this.state.filteredCharacters} />}
-        <PaginationContainer onPageChange={this.onPageChange} />
-      </div>
-    );
-  }
+  return (
+    <div className="App container">
+      <Header />
+      <Form characters={characters} onSearchFilterChange={onSearchFilterChange} />
+      {spinner ? <Spinner /> : <DisplayTable characters={characters} filteredCharacters={filteredCharacters} />}
+      <PaginationContainer onPageChange={onPageChange} />
+    </div>
+  );
 }
 
 export default App;
