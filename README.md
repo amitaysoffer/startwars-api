@@ -1,10 +1,10 @@
-# Starwars API app
+# Starwars API React App
 
 > A React app built using data from the swapi.dev api
 
 Check out the app [HERE](https://expense-tracker-react1.herokuapp.com/)
 
-![Screenshot 2020-10-12 at 15 55 57](https://user-images.githubusercontent.com/31068256/95760916-82e23f00-0ca3-11eb-9150-a8152aee3010.png)
+![Screenshot 2020-10-22 at 20 00 34](https://user-images.githubusercontent.com/31068256/96917861-4e3f6600-14a1-11eb-93b1-61ffca914777.png)
 
 In this app I had the pleasure to work with external API and learn deeply about http protocols. Up until today I only worked with static data, while here I used fetch and axios APIs requests to embed and manipluate data in my app.
 
