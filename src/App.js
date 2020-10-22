@@ -54,13 +54,16 @@ function App() {
       try {
         const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
         const characters = response.data.results
-
+        // debugger
         for (const char of characters) {
-          const homeworldResponse = await axios.get(char.homeworld.replace('http', 'https'))
-          debugger
+          const httpsRequestHome = char.homeworld.replace('http', 'https');
+          const homeworldResponse = await axios.get(httpsRequestHome)
+          // debugger
           char.homeworld = homeworldResponse.data.name
 
-          const speciesdResponse = await axios.get(char.species.replace('http', 'https'))
+          const httpsRequestSpecies = char.species.replace('http', 'https');
+          const speciesdResponse = await axios.get(httpsRequestSpecies)
+          
           char.species = speciesdResponse.data.name
         }
         setCharacters(prevCharacters => prevCharacters = characters)
