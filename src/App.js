@@ -32,10 +32,11 @@ function App() {
 
   async function onSearchFilterChange(e) {
     if (e.target.value) {
-      const response = await axios.get(`http://swapi.dev/api/people/?search=${e.target.value}`);
+      const response = await axios.get(`https://swapi.dev/api/people/?search=${e.target.value}`);
       const characters = response.data.results;
 
       for (const char of characters) {
+      
         const homeworldResponse = await axios.get(char.homeworld)
         char.homeworld = homeworldResponse.data.name
 
@@ -51,7 +52,7 @@ function App() {
   useEffect(() => {
     async function displayCharacters() {
       try {
-        const response = await axios.get(`http://swapi.dev/api/people?page=${page}`);
+        const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
         const characters = response.data.results
 
         for (const char of characters) {
