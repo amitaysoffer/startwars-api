@@ -6,7 +6,7 @@ Check out the app [HERE](https://amitay-starwarsapi.herokuapp.com/)
 
 ![Screenshot 2020-10-22 at 20 00 34](https://user-images.githubusercontent.com/31068256/96917861-4e3f6600-14a1-11eb-93b1-61ffca914777.png)
 
-In this app I had the pleasure to work with external API and learn deeply about http protocols. Up until today I only worked with static data, while here I used fetch and axios APIs requests to embed and manipluate data in my app.
+In this app I had to use external API and learn deeply about http protocols. Up until today I only worked with static data, while here I used fetch and axios APIs requests to embed and manipluate data in my app.
 
 I took this oppurtinity to better understand several key concepts in modren JS, such as Promises, async/await and http protocols. 
 

@@ -57,7 +57,6 @@ function App() {
     async function displayCharacters() {
       try {
         const response = await axios.get(`https://swapi.dev/api/people/?page=${page}`);
-        debugger
         const characters = response.data.results
 
         for (const char of characters) {
