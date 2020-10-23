@@ -2,7 +2,7 @@
 
 > A React app built using data from the swapi.dev api
 
-Check out the app [HERE](https://expense-tracker-react1.herokuapp.com/)
+Check out the app [HERE](https://amitay-starwarsapi.herokuapp.com/)
 
 ![Screenshot 2020-10-22 at 20 00 34](https://user-images.githubusercontent.com/31068256/96917861-4e3f6600-14a1-11eb-93b1-61ffca914777.png)
 
