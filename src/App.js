@@ -29,19 +29,23 @@ function App() {
     }
   }
 
-
   async function onSearchFilterChange(e) {
     if (e.target.value) {
       const response = await axios.get(`https://swapi.dev/api/people/?search=${e.target.value}`);
       const characters = response.data.results;
 
       for (const char of characters) {
-
-        const homeworldResponse = await axios.get(char.homeworld.replace('http', 'https'))
+        const httpsRequestHomeWorld = `https${char.homeworld.substring(4)}`
+        const homeworldResponse = await axios.get(httpsRequestHomeWorld)
         char.homeworld = homeworldResponse.data.name
 
-        const speciesdResponse = await axios.get(char.species.replace('http', 'https'))
-        char.species = speciesdResponse.data.name
+        if (char.species.length < 1) {
+          char.species = 'Human'
+        } else {
+          const httpsRequestSpecies = `https${char.species[0].substring(4)}`
+          const speciesdResponse = await axios.get(httpsRequestSpecies)
+          char.species = speciesdResponse.data.name
+        }
       }
       setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
     } else {
@@ -54,17 +58,19 @@ function App() {
       try {
         const response = await axios.get(`https://swapi.dev/api/people?page=${page}`);
         const characters = response.data.results
-        // debugger
+
         for (const char of characters) {
-          const httpsRequestHome = char.homeworld.replace('http', 'https');
-          const homeworldResponse = await axios.get(httpsRequestHome)
-          // debugger
+          const httpsRequestHomeWorld = `https${char.homeworld.substring(4)}`
+          const homeworldResponse = await axios.get(httpsRequestHomeWorld)
           char.homeworld = homeworldResponse.data.name
 
-          const httpsRequestSpecies = char.species.replace('http', 'https');
-          const speciesdResponse = await axios.get(httpsRequestSpecies)
-          
-          char.species = speciesdResponse.data.name
+          if (char.species.length < 1) {
+            char.species = 'Human'
+          } else {
+            const httpsRequestSpecies = `https${char.species[0].substring(4)}`
+            const speciesdResponse = await axios.get(httpsRequestSpecies)
+            char.species = speciesdResponse.data.name
+          }
         }
         setCharacters(prevCharacters => prevCharacters = characters)
         setFilteredCharacters(prevFilteredCharacters => prevFilteredCharacters = characters)
