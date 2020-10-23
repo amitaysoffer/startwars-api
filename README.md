@@ -4,7 +4,7 @@
 
 Check out the app [HERE](https://amitay-starwarsapi.herokuapp.com/)
 
-![Screenshot 2020-10-22 at 20 00 34](https://user-images.githubusercontent.com/31068256/96917861-4e3f6600-14a1-11eb-93b1-61ffca914777.png)
+![Screenshot 2020-10-23 at 14 34 33](https://user-images.githubusercontent.com/31068256/97010107-e63e5d80-153c-11eb-8dad-0f6a2abb980b.png)
 
 In this app I had to use external API and learn deeply about http protocols. Up until today I only worked with static data, while here I used fetch and axios APIs requests to embed and manipluate data in my app.
 
