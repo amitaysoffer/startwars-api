@@ -14,7 +14,8 @@ function App() {
   const [page, setPage] = useState(1);
   const [canSearch, setCanSearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
-  const timeoutRef = useRef(null);
+  // const timeoutRef = useRef(null);
+  let timeoutRef = useState(null);
 
   function onSearchFilterChange(e) {
     setCanSearch(false);
@@ -22,14 +23,14 @@ function App() {
   }
 
   useEffect(() => {
-    if (timeoutRef.current !== null) {
-      clearTimeout(timeoutRef.current);
+    if (timeoutRef !== null) {
+      clearTimeout(timeoutRef);
     }
 
     if (canSearch) performApiCall();
 
-    timeoutRef.current = setTimeout(() => {
-      timeoutRef.current = null;
+    timeoutRef = setTimeout(() => {
+      timeoutRef = null;
       setCanSearch(true);
     }, 1000);
   }, [canSearch]);
