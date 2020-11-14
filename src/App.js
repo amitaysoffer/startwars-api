@@ -12,11 +12,10 @@ function App() {
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [spinner, setSpinner] = useState(true);
   const [page, setPage] = useState(1);
-
   const [canSearch, setCanSearch] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const timeoutRef = useRef(null);
-  
+
   function onSearchFilterChange(e) {
     setCanSearch(false);
     setSearchValue(e.target.value);
